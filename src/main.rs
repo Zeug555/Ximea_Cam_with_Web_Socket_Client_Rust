@@ -32,6 +32,7 @@ async fn main() {
     let (write, read) = ws_stream.split();
 
     let stdin_to_ws = stdin_rx.map(Ok).forward(write);
+    
     let ws_to_stdout = {
         read.for_each(|message| async {
             let data = message.unwrap().into_data();
